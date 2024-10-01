@@ -3,7 +3,7 @@ name: Golang-Pipeline
 on: 
   push:
     branches:
-      - main
+      - first-iteration
     tags:
       - 'v*'
 
