@@ -9,7 +9,7 @@ jobs:
 
       - name: Install golangci-lint
         run: |
-          wget -u -O golangci-lint.Linux-amd64.tar.gz https://github.com/golangci/golangci-lint/releases/latest/download/golangci-lint-linux-amd64.tar.gz
+          wget -O golangci-lint.Linux-amd64.tar.gz https://github.com/golangci/golangci-lint/releases/latest/download/golangci-lint-linux-amd64.tar.gz
           tar -xzvf golangci-lint.Linux-amd64.tar.gz
           mv golangci-lint-*/golangci-lint /usr/local/bin/
           chmod +x /usr/local/bin/golangci-lint
