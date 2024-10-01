@@ -45,4 +45,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:${{ github.ref_name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:${{ github.ref }}
