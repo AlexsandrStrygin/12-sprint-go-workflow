@@ -1,40 +1,37 @@
 name: Golang-Pipeline
-
 on: push
-
 jobs:
   lint:
-  runs-on: ubuntu-latest
-  container: golang:1.23
-  steps:
-  - uses: actions/checkout@v4
-  - name: Install Linting Tools
-  run: |
-   go install github
-   - name: Run Linters
-   run: golangci-lint run --out-format=colored-line-number
+    runs-on: ubuntu-latest
+    container: golang:1.23
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Linting Tools
+        run: |
+          go install github
+      - name: Run Linters
+        run: golangci-lint run --out-format=colored-line-number
   test:
-   runs-on: ubuntu-latest
-   container: golang:1.23
-   steps:
-   - uses: actions/checkout@v4
-   - name: Run Unit Tests
-     run: go test ./...
+    runs-on: ubuntu-latest
+    container: golang:1.23
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Unit Tests
+        run: go test ./...
   deploy:
-  if: github.event_name == 'push' && github.ref_type == 'tag'
-  needs: test
-   runs-on:ubuntu-latest
-   steps:
-    - uses: actions/checkout@v3
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:${{ github.ref }}
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:${{ github.ref }}
