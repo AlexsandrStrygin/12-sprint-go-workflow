@@ -1,34 +1,19 @@
-name: Golang-Pipeline
-
-on: 
-  push:
-    branches:
-      - first-iteration
-    tags:
-      - 'v*'
-
+name: golang-pipeline
+on: push
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    container: golang:1.23
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
-      - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          skip-cache: false
-          install-mode: binary
-
   test:
-    needs: lint
     runs-on: ubuntu-latest
     container: golang:1.23
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      
+      - name: Run Linters
+        run: |
+          golangci-lint run
+        
       - name: Run Unit Tests
-        run: go test ./...
+        run: |
+          go test ./...
 
   deploy:
     runs-on: ubuntu-latest
