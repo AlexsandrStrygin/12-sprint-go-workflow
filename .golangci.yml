@@ -1,0 +1,12 @@
+   linters:
+     disable:
+       - ineffassign
+       - staticcheck
+     enable:
+       - gocritic
+       - revive
+       - gofmt
+
+   run:
+     tests: true
+     deadline: 2m
