@@ -44,4 +44,4 @@ jobs:
           docker tag 12-sprint-go-workflow ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:v1
       - name: Push to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/12-sprint-go-workflow:${{ github.ref_name }}
