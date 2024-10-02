@@ -1,5 +1,10 @@
 name: golang-pipeline
-on: push
+on:
+  push:
+    branches:
+      - second-iteration
+    tags:
+      - 'v*'
    
 jobs:
   test:
